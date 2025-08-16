@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Insights Extractor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <!-- Header -->
+            <header class="col-12 bg-white border-bottom px-4 py-3">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-store text-primary me-3 fs-4"></i>
+                    <h1 class="h4 mb-0 text-dark">Shopify Insights Extractor</h1>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="col-12 px-4 py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                        <!-- Hero Section -->
+                        <div class="text-center mb-5">
+                            <div class="icon-wrapper mb-4">
+                                <i class="fas fa-chart-line text-primary"></i>
+                            </div>
+                            <h2 class="display-6 fw-normal mb-3">Extract Comprehensive Store Insights</h2>
+                            <p class="lead text-muted mb-0">
+                                Analyze any Shopify store to extract products, policies, contact information, and business insights.
+                            </p>
+                        </div>
+
+                        <!-- Error Alert -->
+                        {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Error:</strong> {{ error }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        {% endif %}
+
+                        <!-- URL Input Form -->
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <form method="POST" action="/extract" id="extractForm">
+                                    <div class="mb-3">
+                                        <label for="website_url" class="form-label fw-medium">
+                                            <i class="fas fa-globe me-2"></i>Shopify Website URL
+                                        </label>
+                                        <input 
+                                            type="url" 
+                                            class="form-control form-control-lg" 
+                                            id="website_url" 
+                                            name="website_url" 
+                                            placeholder="https://example.myshopify.com"
+                                            value="{{ website_url if website_url else '' }}"
+                                            required
+                                        >
+                                        <div class="form-text">
+                                            Enter the full URL of a Shopify store (e.g., memy.co.in, hairoriginals.com)
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary btn-lg w-100" id="extractBtn">
+                                        <i class="fas fa-search me-2"></i>
+                                        <span id="btnText">Extract Insights</span>
+                                        <span id="loadingText" class="d-none">
+                                            <i class="fas fa-spinner fa-spin me-2"></i>Extracting...
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Features Grid -->
+                        <div class="row mt-5">
+                            <div class="col-12 mb-4">
+                                <h3 class="h5 text-center mb-4 text-muted">What We Extract</h3>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="feature-item text-center">
+                                    <i class="fas fa-box-open text-primary mb-2"></i>
+                                    <h6 class="mb-1">Product Catalog</h6>
+                                    <small class="text-muted">Complete product listings with details</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="feature-item text-center">
+                                    <i class="fas fa-star text-primary mb-2"></i>
+                                    <h6 class="mb-1">Hero Products</h6>
+                                    <small class="text-muted">Featured items from homepage</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="feature-item text-center">
+                                    <i class="fas fa-file-alt text-primary mb-2"></i>
+                                    <h6 class="mb-1">Policies</h6>
+                                    <small class="text-muted">Privacy, return & refund policies</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="feature-item text-center">
+                                    <i class="fas fa-question-circle text-primary mb-2"></i>
+                                    <h6 class="mb-1">FAQs</h6>
+                                    <small class="text-muted">Frequently asked questions</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="feature-item text-center">
+                                    <i class="fas fa-share-alt text-primary mb-2"></i>
+                                    <h6 class="mb-1">Social Media</h6>
+                                    <small class="text-muted">Social platform handles</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="feature-item text-center">
+                                    <i class="fas fa-address-book text-primary mb-2"></i>
+                                    <h6 class="mb-1">Contact Info</h6>
+                                    <small class="text-muted">Emails, phones & addresses</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- API Documentation -->
+                        <div class="mt-5 pt-4 border-top">
+                            <h4 class="h6 mb-3">API Endpoint</h4>
+                            <div class="bg-light rounded p-3">
+                                <code class="text-dark">
+                                    <strong>POST</strong> /api/extract<br>
+                                    <small>Content-Type: application/json</small><br>
+                                    <small>Body: {"website_url": "https://example.com"}</small>
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('extractForm').addEventListener('submit', function(e) {
+            const btn = document.getElementById('extractBtn');
+            const btnText = document.getElementById('btnText');
+            const loadingText = document.getElementById('loadingText');
+            
+            btnText.classList.add('d-none');
+            loadingText.classList.remove('d-none');
+            btn.disabled = true;
+        });
+    </script>
+</body>
+</html>

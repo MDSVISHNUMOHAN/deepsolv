@@ -1,0 +1,239 @@
+/* Custom Styles for Shopify Insights Extractor */
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Hero Section */
+.icon-wrapper {
+    position: relative;
+}
+
+.icon-wrapper i {
+    font-size: 4rem;
+    opacity: 0.1;
+}
+
+/* Cards */
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 25px rgba(0,0,0,0.1) !important;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+/* Feature Items */
+.feature-item {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.feature-item:hover {
+    background-color: rgba(0,123,255,0.05);
+}
+
+.feature-item i {
+    font-size: 1.5rem;
+}
+
+/* Form Styles */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+.btn {
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Product Thumbnails */
+.product-thumb {
+    flex-shrink: 0;
+    border: 1px solid #dee2e6;
+}
+
+/* Scrollable Areas */
+.products-list::-webkit-scrollbar,
+.hero-products-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.products-list::-webkit-scrollbar-track,
+.hero-products-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.products-list::-webkit-scrollbar-thumb,
+.hero-products-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.products-list::-webkit-scrollbar-thumb:hover,
+.hero-products-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Badge Styles */
+.badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+/* JSON Code Block */
+pre {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+pre::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+    background: #e9ecef;
+    border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+    border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: #6c757d;
+}
+
+/* Accordion Styles */
+.accordion-button {
+    font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgba(0,123,255,0.1);
+    color: var(--primary-color);
+}
+
+.accordion-button:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+/* Social Media Icons */
+.fab {
+    font-size: 1.1rem;
+}
+
+/* Alert Styles */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+/* Loading State */
+.btn:disabled {
+    opacity: 0.7;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .display-6 {
+        font-size: 1.5rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    .feature-item {
+        margin-bottom: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .products-list,
+    .hero-products-list {
+        max-height: 300px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .px-4 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Empty State Styles */
+.text-center i.fs-1,
+.text-center i.fs-3 {
+    opacity: 0.3;
+}
+
+/* Link Hover Effects */
+a:not(.btn):not(.nav-link) {
+    transition: color 0.2s ease;
+}
+
+/* Print Styles */
+@media print {
+    .btn,
+    .sticky-top,
+    .accordion-button {
+        display: none !important;
+    }
+    
+    .card {
+        border: 1px solid #dee2e6 !important;
+        box-shadow: none !important;
+    }
+    
+    .products-list,
+    .hero-products-list {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
